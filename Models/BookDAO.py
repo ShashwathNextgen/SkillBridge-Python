@@ -47,7 +47,7 @@ class BookDAO():
 
 	def available(self, id):
 		book = self.getById(id)
-		count = book['count']
+		count = book[6]
 
 		if count < 1:
 			return False

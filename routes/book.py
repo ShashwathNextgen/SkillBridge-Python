@@ -18,11 +18,11 @@ def home(id):
 		b = book_manager.getBook(id)
 
 		print('----------------------------')
-		print(b)
+		print(type(b))
 
 		user_books={}
 		if user_manager.user.isLoggedIn():
-			user_books = book_manager.getReserverdBooksByUser(user_id=user_manager.user.uid())['user_books'].split(',')
+			user_books = book_manager.getReserverdBooksByUser(user_id=user_manager.user.uid())[0]#.split(',')
 		
 		if b and len(b) <1:
 			return render_template('book_view.html', error="No book found!")
@@ -36,12 +36,12 @@ def home(id):
 			reserved_books = book_manager.getReserverdBooksByUser(user_id=user_manager.user.uid())
 			
 			if reserved_books is not None:
-				user_books = reserved_books['user_books'].split(',')
+				user_books = reserved_books[0]#.split(',')
 		
 		print("---------------------------------------")
 		print(user_books)
 
-		if b and len(b) <1:
+		if b and len(b) < 1:
 			return render_template('books.html', error="No books found!")
 	
 		return render_template("books.html", books=b, g=g, user_books=user_books)
